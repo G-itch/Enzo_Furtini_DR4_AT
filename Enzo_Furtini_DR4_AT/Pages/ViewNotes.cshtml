@@ -1,0 +1,97 @@
+@page
+@model Enzo_Furtini_DR4_AT.Pages.ViewNotesModel
+@{
+    ViewData["Title"] = "Sistema de Notas";
+}
+
+<div class="container mt-4">
+    <h2>Sistema de Notas</h2>
+    <p class="text-muted">Crie e visualize anotações salvas como arquivos .txt</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Criar Nova Nota</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Titulo" class="form-label">Título da Nota *</label>
+                            <input asp-for="Titulo" class="form-control" placeholder="Digite o título da nota" required />
+                            <span asp-validation-for="Titulo" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Conteudo" class="form-label">Conteúdo *</label>
+                            <textarea asp-for="Conteudo" class="form-control" rows="6" placeholder="Digite o conteúdo da nota" required></textarea>
+                            <span asp-validation-for="Conteudo" class="text-danger"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Salvar Nota</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Notas Disponíveis</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.ArquivosNotas?.Any() == true)
+                    {
+                        <div class="list-group">
+                            @foreach (var arquivo in Model.ArquivosNotas)
+                            {
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">@arquivo.Nome</h6>
+                                        <small class="text-muted">Criado em: @arquivo.DataCriacao.ToString("dd/MM/yyyy HH:mm")</small>
+                                    </div>
+                                    <div>
+                                        <a asp-page="./ViewNotes" asp-route-arquivo="@arquivo.Nome" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-eye"></i> Visualizar
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Nenhuma nota encontrada.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ConteudoSelecionado))
+    {
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Visualizando: @Model.ArquivoSelecionado</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre class="bg-light p-3 rounded">@Model.ConteudoSelecionado</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Mensagem))
+    {
+        <div class="alert alert-success mt-3" role="alert">
+            @Model.Mensagem
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

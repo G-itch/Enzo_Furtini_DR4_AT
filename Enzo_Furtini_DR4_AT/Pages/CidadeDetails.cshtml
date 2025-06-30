@@ -1,0 +1,123 @@
+@page "{id:int}"
+@model Enzo_Furtini_DR4_AT.Pages.CidadeDetailsModel
+@{
+    ViewData["Title"] = $"Detalhes - {Model.Cidade?.Nome}";
+}
+
+<div class="container mt-4">
+    @if (Model.Cidade != null)
+    {
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>@Model.Cidade.Nome</h2>
+                        <p class="text-muted mb-0">Detalhes da cidade de destino</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong>Nome da Cidade:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                @Model.Cidade.Nome
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong>País:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                @Model.Cidade.PaisDestino?.Nome
+                                @if (!string.IsNullOrEmpty(Model.Cidade.PaisDestino?.Codigo))
+                                {
+                                    <span class="badge bg-secondary ms-2">@Model.Cidade.PaisDestino.Codigo</span>
+                                }
+                            </div>
+                        </div>
+                        
+                        @if (!string.IsNullOrEmpty(Model.Cidade.Descricao))
+                        {
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <strong>Descrição:</strong>
+                                </div>
+                                <div class="col-md-8">
+                                    @Model.Cidade.Descricao
+                                </div>
+                            </div>
+                        }
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong>Pacotes Turísticos:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                @if (Model.Cidade.PacotesTuristicos?.Any() == true)
+                                {
+                                    <ul class="list-unstyled">
+                                        @foreach (var pacote in Model.Cidade.PacotesTuristicos.Take(5))
+                                        {
+                                            <li>
+                                                <a asp-page="/PacotesTuristicos/Details" asp-route-id="@pacote.Id" class="text-decoration-none">
+                                                    @pacote.Titulo
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                    @if (Model.Cidade.PacotesTuristicos.Count > 5)
+                                    {
+                                        <small class="text-muted">E mais @(Model.Cidade.PacotesTuristicos.Count - 5) pacotes...</small>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Nenhum pacote turístico associado</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Ações</h5>
+                    </div>
+                    <div class="card-body">
+                        <a asp-page="/Cidades/Edit" asp-route-id="@Model.Cidade.Id" class="btn btn-primary btn-sm w-100 mb-2">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a asp-page="/Cidades/Index" class="btn btn-secondary btn-sm w-100 mb-2">
+                            <i class="bi bi-arrow-left"></i> Voltar à Lista
+                        </a>
+                        <a asp-page="/PacotesTuristicos/Create" asp-route-cidadeId="@Model.Cidade.Id" class="btn btn-success btn-sm w-100">
+                            <i class="bi bi-plus"></i> Criar Pacote
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5>Informações</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>ID:</strong> @Model.Cidade.Id</p>
+                        <p><strong>País ID:</strong> @Model.Cidade.PaisDestinoId</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Cidade não encontrada!</h4>
+            <p>A cidade com o ID especificado não foi encontrada ou foi removida.</p>
+            <hr>
+            <a asp-page="/Cidades/Index" class="btn btn-primary">Voltar à Lista de Cidades</a>
+        </div>
+    }
+</div> 

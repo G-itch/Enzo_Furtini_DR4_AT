@@ -1,0 +1,59 @@
+@page
+@model Enzo_Furtini_DR4_AT.Pages.CreateCidadeModel
+@{
+    ViewData["Title"] = "Cadastrar Cidade";
+}
+
+<div class="container mt-4">
+    <h2>Cadastrar Nova Cidade</h2>
+    <p class="text-muted">Cadastre uma nova cidade de destino para os pacotes turísticos.</p>
+
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="Cidade.Nome" class="form-label">Nome da Cidade *</label>
+                    <input asp-for="Cidade.Nome" class="form-control" placeholder="Digite o nome da cidade" />
+                    <span asp-validation-for="Cidade.Nome" class="text-danger"></span>
+                    <div class="form-text">O nome deve ter pelo menos 3 caracteres.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="Cidade.Descricao" class="form-label">Descrição</label>
+                    <textarea asp-for="Cidade.Descricao" class="form-control" rows="3" placeholder="Descreva os pontos turísticos e atrações da cidade"></textarea>
+                    <span asp-validation-for="Cidade.Descricao" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="Cidade.PaisDestinoId" class="form-label">País *</label>
+                    <select asp-for="Cidade.PaisDestinoId" class="form-select" asp-items="Model.PaisesOptions">
+                        <option value="">Selecione um país</option>
+                    </select>
+                    <span asp-validation-for="Cidade.PaisDestinoId" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Cadastrar Cidade</button>
+                    <a asp-page="/Cidades/Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Informações</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Nome da Cidade:</strong> Campo obrigatório com mínimo de 3 caracteres.</p>
+                    <p><strong>Descrição:</strong> Campo opcional para detalhes sobre a cidade.</p>
+                    <p><strong>País:</strong> Selecione o país onde a cidade está localizada.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

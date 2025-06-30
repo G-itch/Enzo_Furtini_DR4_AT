@@ -1,0 +1,197 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Sistema de Agência de Turismo";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Sistema de Agência de Turismo</h1>
+    <p class="lead">Bem-vindo ao sistema de gerenciamento para agência de turismo</p>
+    <p class="text-muted">Desenvolvido com ASP.NET Core, Entity Framework Core e Razor Pages</p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Delegates e Events -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Delegates e Events</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="/CalculoDesconto" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Cálculo de Desconto</h6>
+                                <small class="text-muted">Delegate</small>
+                            </div>
+                            <p class="mb-1">Aplicar desconto usando delegate personalizado</p>
+                        </a>
+                        <a href="/CalculoValorTotal" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Cálculo de Valor Total</h6>
+                                <small class="text-muted">Func + Lambda</small>
+                            </div>
+                            <p class="mb-1">Calcular valor total com Func e expressão lambda</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Razor Pages -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Razor Pages</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="/CreateCidade" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Cadastrar Cidade</h6>
+                                <small class="text-muted">Validação</small>
+                            </div>
+                            <p class="mb-1">Cadastro com validação de campos obrigatórios</p>
+                        </a>
+                        <a href="/ViewNotes" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Sistema de Notas</h6>
+                                <small class="text-muted">I/O Files</small>
+                            </div>
+                            <p class="mb-1">Criar e visualizar notas em arquivos .txt</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entity Framework -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Entity Framework Core</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <a href="/Cidades/Index" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Gerenciar Cidades</h6>
+                                <small class="text-muted">CRUD</small>
+                            </div>
+                            <p class="mb-1">Operações CRUD para cidades de destino</p>
+                        </a>
+                        <a href="/PaisesDestino/Index" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Gerenciar Países</h6>
+                                <small class="text-muted">CRUD</small>
+                            </div>
+                            <p class="mb-1">Operações CRUD para países de destino</p>
+                        </a>
+                        <a href="/Clientes/Index" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Gerenciar Clientes</h6>
+                                <small class="text-muted">CRUD</small>
+                            </div>
+                            <p class="mb-1">Operações CRUD para clientes</p>
+                        </a>
+                        <a href="/PacotesTuristicos/Index" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Gerenciar Pacotes</h6>
+                                <small class="text-muted">CRUD</small>
+                            </div>
+                            <p class="mb-1">Operações CRUD para pacotes turísticos</p>
+                        </a>
+                        <a href="/Reservas/Index" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Gerenciar Reservas</h6>
+                                <small class="text-muted">CRUD</small>
+                            </div>
+                            <p class="mb-1">Operações CRUD para reservas</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Autenticação -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Autenticação</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Usuário Logado</h6>
+                                    <small class="text-success">Ativo</small>
+                                </div>
+                                <p class="mb-1">Olá, @User.Identity.Name!</p>
+                            </div>
+                            <a href="/Account/Logout" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Logout</h6>
+                                    <small class="text-muted">Sair</small>
+                                </div>
+                                <p class="mb-1">Fazer logout do sistema</p>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Account/Login" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Login</h6>
+                                    <small class="text-muted">Entrar</small>
+                                </div>
+                                <p class="mb-1">Fazer login no sistema</p>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informações do Sistema -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Informações do Sistema</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Funcionalidades Implementadas:</h6>
+                            <ul>
+                                <li>✅ Delegates para cálculo de descontos</li>
+                                <li>✅ Multicast delegate para logs</li>
+                                <li>✅ Func com expressão lambda</li>
+                                <li>✅ Eventos para alertas de capacidade</li>
+                                <li>✅ Validação com Data Annotations</li>
+                                <li>✅ Roteamento com parâmetros</li>
+                                <li>✅ Leitura e escrita de arquivos</li>
+                                <li>✅ Entity Framework Core</li>
+                                <li>✅ Autenticação simples</li>
+                                <li>✅ Exclusão lógica</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Entidades do Sistema:</h6>
+                            <ul>
+                                <li><strong>Cliente:</strong> Cadastro de clientes</li>
+                                <li><strong>PaisDestino:</strong> Países de destino</li>
+                                <li><strong>CidadeDestino:</strong> Cidades de destino</li>
+                                <li><strong>PacoteTuristico:</strong> Pacotes turísticos</li>
+                                <li><strong>Reserva:</strong> Reservas de clientes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

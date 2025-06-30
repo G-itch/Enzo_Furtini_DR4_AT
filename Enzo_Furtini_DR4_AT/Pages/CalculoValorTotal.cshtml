@@ -1,0 +1,72 @@
+@page
+@model Enzo_Furtini_DR4_AT.Pages.CalculoValorTotalModel
+@{
+    ViewData["Title"] = "Cálculo de Valor Total";
+}
+
+<div class="container mt-4">
+    <h2>Cálculo de Valor Total</h2>
+    <p class="text-muted">Utilizando Func&lt;int, int, decimal&gt; com expressão lambda para calcular o valor total da reserva.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="NumeroDiarias" class="form-label">Número de Diárias</label>
+                    <input asp-for="NumeroDiarias" class="form-control" type="number" min="1" max="30" required />
+                    <span asp-validation-for="NumeroDiarias" class="text-danger"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="ValorDiaria" class="form-label">Valor da Diária (R$)</label>
+                    <input asp-for="ValorDiaria" class="form-control" type="number" step="0.01" min="0" required />
+                    <span asp-validation-for="ValorDiaria" class="text-danger"></span>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Calcular Valor Total</button>
+            </form>
+        </div>
+        
+        <div class="col-md-6">
+            @if (Model.ResultadoCalculado)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Resultado do Cálculo</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Número de Diárias:</strong>
+                            </div>
+                            <div class="col-6">
+                                @Model.NumeroDiarias
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Valor da Diária:</strong>
+                            </div>
+                            <div class="col-6">
+                                R$ @Model.ValorDiaria.ToString("F2")
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Valor Total:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span class="text-success fw-bold fs-5">R$ @Model.ValorTotal.ToString("F2")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 
